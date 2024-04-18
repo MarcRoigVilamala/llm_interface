@@ -1,0 +1,83 @@
+{% extends 'base.html' %} {% block content %}
+<div id="chat" class="column">
+  <div id="chat-room-widget">
+    <div id="msgs-container">
+      <ul id="messages"></ul>
+    </div>
+
+    <div id="message-box">
+      <textarea
+        placeholder="Enter your message"
+        id="message-input"
+        name="message"
+      ></textarea>
+      <button type="submit" id="send-btn" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var socketio = io();
+
+    socketio.on("message", function (message) {
+      createChatItem(message.message, message.sender);
+    });
+
+    function createChatItem(message, sender) {
+      var messages = document.getElementById("messages");
+
+      var content = `
+        <li class="message-item ${sender === "user" ? "user-message-item" : "llm-message-item"}">
+            <p>${message.replace(/(?:\r\n|\r|\n)/g, '<br/>')}</p>
+        </li>
+    `;
+
+      messages.innerHTML += content;
+    }
+
+    function sendMessage() {
+      var msgInput = document.getElementById("message-input");
+      if (msgInput.value === "") return;
+
+      var msg = msgInput.value;
+      socketio.emit("message", { message: msg });
+      msgInput.value = "";
+    }
+  </script>
+
+  <script>
+    $('#message-input').keydown(onCtrlEnter(sendMessage))
+  </script>
+
+  {% for message in current_room["messages"] %}
+  <script type="text/javascript">
+    createChatItem(`{{message.message}}`, "{{message.sender}}");
+  </script>
+  {% endfor %}
+</div>
+
+<div id="llm_settings_column" class="column">
+  <h2>LLM Settings</h2>
+  <form method="post">
+    <div class="llm_settings">
+      <label for="llm_name">LLM</label>
+      <select id="llm_name" name="llm_name">
+        {% for model in llm_models %}
+        <option value="{{model}}">{{model}}</option>
+        {% endfor %}
+      </select>
+      <br/>
+      <label for="max_new_tokens">Max New Tokens</label>
+      <input type="number" id="max_new_tokens" name="max_new_tokens" value="{{current_room['settings']['max_new_tokens']}}">
+      <br/>
+      <label for="sys_prompt">System Prompt</label>
+      <br/>
+      <textarea
+        placeholder="Enter the system prompt for the LLM."
+        id="sys_prompt"
+        name="sys_prompt"
+      >{{current_room['settings']['sys_prompt']}}</textarea><br>
+      <button type="submit" id="settings-btn" onclick="">Update</button>
+    </div>
+  </form>
+</div>
+{% endblock %}

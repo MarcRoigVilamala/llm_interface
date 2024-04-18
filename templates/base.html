@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename='style.css')}}"
+    />
+    <title>Flask Chat</title>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"
+      integrity="sha512-q/dWJ3kcmjBLU4Qc47E4A9kTB4m3wuTY7vkFJDTZKjTs8jhyGQnaUrxa0Ytd0ssMZhbNua9hE+E7Qv1j+DyZwA=="
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+      integrity="sha384-1H217gwSVyLSIfaLxHbE7dRb3v4mYCKbpQvzx0cegeju1MVsGrX5xXxAvs/HgeFs"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      function onCtrlEnter(fnct) {
+        return function (event) {
+          if (event.ctrlKey && event.keyCode === 13) {
+            fnct();
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root">
+      <div id="rooms_panel" class="column">
+        <a href="/"><div id="home"><h1 id="home-header">LLM Interface 💬</h1></div></a>
+
+        <div class="room_list">
+        {% for room in rooms.keys() %}
+          <a href="/room/{{room}}"><div class="room_link">{{room}}</div></a>
+        {% endfor %}
+        </div>
+
+        <div id="loaded_llms_box">
+          <h2>Loaded LLMs</h2>
+        {% for llm in loaded_llms.keys() %}
+          <div class="loaded_llm">{{llm}}</div>
+        {% endfor %}
+        </div>
+      </div>
+      <div id="content" class="column">
+        {% block content %} {% endblock %}
+      </div>
+    </div>
+  </body>
+</html>

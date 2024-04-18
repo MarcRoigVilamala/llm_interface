@@ -1,0 +1,15 @@
+#colours_repo {
+  background-color: lightblue; /* rooms panel background */
+  background-color: rgb(0, 100, 140); /* home link background */
+  background-color: rgb(191, 237, 255); /* content background */
+  box-shadow: inset 0 0 5px rgb(207, 207, 207); /* scrollbar */
+  background: rgb(137, 137, 137); /* scrollbar highlighted */
+  background-color: rgb(226, 29, 29);
+  background-color: rgb(255, 210, 210);
+  background-color: rgb(46, 175, 225); /* llm settings background */
+  background-color: rgb(47, 47, 47);
+  color: rgb(0, 73, 101);
+  color: rgb(226, 29, 29);
+  color: rgb(40, 40, 40);
+  color: rgb(47, 47, 47);
+}

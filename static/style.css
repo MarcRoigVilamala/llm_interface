@@ -1,0 +1,253 @@
+/********************************************** General **********************************************/
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(207, 207, 207);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(137, 137, 137);
+}
+
+button {
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  border: 2px solid rgb(47, 47, 47);
+  color: rgb(47, 47, 47);
+  background-color: white;
+  transition: all 0.1s ease-in;
+}
+
+button:hover {
+  background-color: rgb(47, 47, 47);
+  color: white;
+}
+
+.column {
+  float: left;
+  padding: 0;
+  height: 100%;
+  position: relative;
+}
+
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+#rooms_panel {
+  width: 15%;
+  background-color: lightblue;
+  padding: 0;
+}
+
+#rooms_panel a {
+  text-decoration: none;
+}
+
+#content {
+  width: 85%;
+  background-color: rgb(191, 237, 255);
+}
+
+#home {
+  width: 100%;
+  background-color: rgb(0, 100, 140);
+  margin: 0;
+  padding: 10px;
+}
+
+#home-header {
+  margin: 0;
+  color: white;
+  text-decoration: none;
+}
+
+#loaded_llms_box {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 25%;
+  background-color: rgb(46, 175, 225);
+}
+
+.room_link {
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.room_link:hover {
+  background-color: rgb(46, 175, 225);
+}
+
+.loaded_llm {
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+
+.loaded_llm:hover {
+  background-color: rgb(191, 237, 255);
+}
+
+.llm_settings * {
+  margin: 10px 0;
+}
+
+.llm_settings textarea {
+  width: 100%;
+}
+
+.llm_settings button {
+  width: 100%;
+}
+
+.error {
+  width: calc(100% - 60px);
+  margin: 0 auto;
+  padding: 10px;
+  background-color: rgb(255, 210, 210);
+  color: red;
+  border-radius: 10px;
+  font-weight: 900;
+}
+
+/********************************************** Home **********************************************/
+#llm_settings_home {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  background: rgb(46, 175, 225);
+  padding: 20px;
+}
+
+/********************************************** Room **********************************************/
+#chat {
+  width: 80%;
+  background-color: rgb(191, 237, 255);
+}
+
+#llm_settings_column {
+  width: 20%;
+  background-color: rgb(46, 175, 225);
+  padding: 10px 20px;
+}
+
+#chat-room-widget {
+  height: 100%;
+  position: relative;
+}
+
+#msgs-container {
+  position: absolute;
+  height: calc(100% - 100px); /* Take over the whole screen minus size of message box and offset from bottom */
+  width: 90%;
+  overflow-y: auto;
+  background-color: rgb(191, 237, 255);
+
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#msgs-container > ul {
+  list-style: none;
+  padding: 0;
+}
+
+#message-box {
+  position: absolute;
+  bottom: 30px;
+  width: 90%;
+  height: 70px;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  display: flex;
+}
+
+#message-input {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 1.1rem;
+  outline: none;
+  border: 4px solid rgb(191, 237, 255);
+  border-right: none;
+  background-color: white;
+  border-radius: 15px 0 0 15px; /* left corners */
+}
+
+#send-btn {
+  padding: 0 20px;
+  font-size: 1.1rem;
+  border: 4px solid rgb(191, 237, 255);
+  border-left: none;
+  background-color: rgb(0, 100, 140);
+  color: white;
+  cursor: pointer;
+  border-radius: 0 15px 15px 0; /* right corners */
+  transition: all 0.1s ease-in;
+}
+
+#send-btn:hover {
+  background-color: rgb(46, 175, 225);
+}
+
+.message-item {
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+  width: fit-content;
+  max-width: 90%;
+  margin: 10px 0;
+}
+
+.llm-message-item {
+  background-color: rgb(0, 100, 140);
+  color: white;
+  border-bottom-left-radius: 0;
+}
+
+.user-message-item {
+  margin-left: auto;
+  margin-right: 0;
+  border-bottom-right-radius: 0;
+}
+
+#llm_name {
+  margin: 10px
+}

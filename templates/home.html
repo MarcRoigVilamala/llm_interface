@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block content %}
+{% if error %}
+<p class="error">{{error}}</p>
+{% endif %}
+
+<div id="llm_settings_home">
+  <form method="post" id="create_room_form">
+    <div class="llm_settings">
+      <label for="llm_name">Choose the LLM</label>
+      <select id="llm_name" name="llm_name">
+        {% for model in llm_models %}
+        <option value="{{model}}">{{model}}</option>
+        {% endfor %}
+      </select>
+      <br/>
+      <label for="max_new_tokens">Max New Tokens</label>
+      <input type="number" id="max_new_tokens" name="max_new_tokens" value="200">
+      <br/>
+      <label for="sys_prompt">System Prompt</label>
+      <textarea
+        placeholder="Enter the system prompt for the LLM."
+        id="sys_prompt"
+        name="sys_prompt"
+      ></textarea><br>
+      <button type="submit" id="create" name="create">Create Room</button>
+    </div>
+  </form>
+</div>
+{% endblock %}
