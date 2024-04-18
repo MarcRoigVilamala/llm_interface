@@ -133,7 +133,7 @@ def handle_disconnect():
 
 
 @click.command()
-@click.option('--host')
+@click.option('--host', default="127.0.0.1")
 @click.option('--port', default=5000)
 @click.option('--debug/--no-debug', default=True)
 def main(host, port, debug):
