@@ -62,7 +62,11 @@
       <label for="llm_name">LLM</label>
       <select id="llm_name" name="llm_name">
         {% for model in llm_models %}
-        <option value="{{model}}">{{model}}</option>
+          {% if model == current_room['settings']['llm_name'] %}
+            <option value="{{model}}" selected>{{model}}</option>
+          {% else %}
+            <option value="{{model}}">{{model}}</option>
+          {% endif %}
         {% endfor %}
       </select>
       <br/>

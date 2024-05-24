@@ -9,7 +9,11 @@
       <label for="llm_name">Choose the LLM</label>
       <select id="llm_name" name="llm_name">
         {% for model in llm_models %}
-        <option value="{{model}}">{{model}}</option>
+          {% if model == default_llm %}
+            <option value="{{model}}" selected>{{model}}</option>
+          {% else %}
+            <option value="{{model}}">{{model}}</option>
+          {% endif %}
         {% endfor %}
       </select>
       <br/>

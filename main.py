@@ -52,7 +52,8 @@ def home():
         return redirect(url_for(f'room', room_id=room_id))
     else:
         return render_template(
-            'home.html', llm_models=model_interfaces.keys(), rooms=rooms, loaded_llms=loaded_llms
+            'home.html', llm_models=model_interfaces.keys(), rooms=rooms, loaded_llms=loaded_llms,
+            default_llm=app.config.get("default_llm")
         )
 
 
@@ -136,7 +137,10 @@ def handle_disconnect():
 @click.option('--host', default="127.0.0.1")
 @click.option('--port', default=5000)
 @click.option('--debug/--no-debug', default=True)
-def main(host, port, debug):
+@click.option('--default_llm', default=None, type=str)
+def main(host, port, debug, default_llm):
+    app.config["default_llm"] = default_llm
+
     socketio.run(
         app,
         host=host,
