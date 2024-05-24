@@ -80,6 +80,54 @@
         id="sys_prompt"
         name="sys_prompt"
       >{{current_room['settings']['sys_prompt']}}</textarea><br>
+      <div class="example_prompts_box">
+        <p>Example Prompts</p>
+        <ul id="example_messages">
+          {% for message in current_room["settings"].get("example_prompts", []) %}
+          <li class="example_message_item message-item {{ message['sender'] }}-message-item">
+            <textarea
+            placeholder="Enter the example prompt for the {{ message['sender'] }}"
+            name="example_prompts{{ loop.index0 }}_{{ message['sender'] }}"
+            class="{{ message['sender'] }}-message-item"
+            oninput='fixTextAreaHeight(this)'
+            >{{message['message']}}</textarea>
+          </li>
+          {% endfor %}
+        </ul>
+        <script type="text/javascript">
+          var number_of_examples = Number(`{{ current_room["settings"].get("example_prompts", [])|length // 2 }}`);
+
+          function addExampleTextAreas() {
+            var example_messages = document.getElementById("example_messages");
+
+            var content = `
+              <li class="example_message_item message-item user-message-item">
+                <textarea
+                  placeholder="Enter the example prompt for the user."
+                  name="example_prompts${number_of_examples}_user"
+                  class="user-message-item"
+                  oninput='fixTextAreaHeight(this)'
+                ></textarea>
+              </li>
+              <li class="example_message_item message-item llm-message-item">
+                <textarea
+                  placeholder="Enter the LLM's response for in-context learning."
+                  name="example_prompts${number_of_examples}_llm"
+                  class="llm-message-item"
+                  oninput='fixTextAreaHeight(this)'
+                ></textarea>
+              </li>
+          `;
+
+            example_messages.innerHTML += content;
+
+            number_of_examples += 1;
+          }
+
+          addExampleTextAreas();
+        </script>
+        <button type="button" id="add_examples" onclick="addExampleTextAreas()">+</button>
+      </div>
       <button type="submit" id="settings-btn" onclick="">Update</button>
     </div>
   </form>

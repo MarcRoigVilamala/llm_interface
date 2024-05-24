@@ -31,6 +31,25 @@ def get_settings_from_page():
     except TypeError:  # If the max_new_tokens is not an integer, leave it blank
         pass
 
+    res["example_prompts"] = []
+    i = 0
+    while request.form.get(f"example_prompts{i}_user") and request.form.get(f"example_prompts{i}_llm"):
+        res["example_prompts"].append(
+            {
+                "sender": "user",
+                "message": request.form.get(f"example_prompts{i}_user")
+            }
+        )
+
+        res["example_prompts"].append(
+            {
+                "sender": "llm",
+                "message": request.form.get(f"example_prompts{i}_llm")
+            }
+        )
+
+        i += 1
+
     return res
 
 

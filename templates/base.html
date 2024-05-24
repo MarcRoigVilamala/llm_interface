@@ -26,6 +26,11 @@
           }
         }
       }
+      function fixTextAreaHeight( the_txt ) {
+        console.log("fixing");
+        the_txt.style.height = "";
+        the_txt.style.height = the_txt.scrollHeight + "px";
+      }
     </script>
   </head>
   <body>
