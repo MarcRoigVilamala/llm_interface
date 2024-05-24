@@ -130,10 +130,14 @@ def handle_message(payload):
         return
     current_room = rooms[room_id]
     room_messages = current_room["messages"]
-    llm_name = current_room["settings"]["llm_name"]
 
     add_message_to_room(room_id, room_messages, payload["message"], "user")
 
+    create_llm_response(room_id, current_room, room_messages)
+
+
+def create_llm_response(room_id, current_room, room_messages):
+    llm_name = current_room["settings"]["llm_name"]
     llm = loaded_llms.get(llm_name)
     if llm is None:
         add_message_to_room(room_id, room_messages, "ERROR: The requested LLM has not been loaded", "error")
@@ -144,6 +148,19 @@ def handle_message(payload):
     )
 
     add_message_to_room(room_id, room_messages, res, llm_name)
+
+
+@socketio.on('regen')
+def regen_message(payload):
+    print(payload)
+    room_id = session.get('room')
+
+    if room_id not in rooms:
+        return
+    current_room = rooms[room_id]
+    current_room["messages"] = current_room["messages"][:-1]  # Remove the last LLM response
+
+    create_llm_response(room_id, current_room, current_room["messages"])
 
 
 @socketio.on('disconnect')
