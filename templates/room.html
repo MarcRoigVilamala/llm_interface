@@ -50,7 +50,7 @@
 
   {% for message in current_room["messages"] %}
   <script type="text/javascript">
-    createChatItem(`{{message.message}}`, "{{message.sender}}");
+    createChatItem("{{message.message.encode('unicode_escape').decode('utf-8')}}", "{{message.sender}}");
   </script>
   {% endfor %}
 </div>
